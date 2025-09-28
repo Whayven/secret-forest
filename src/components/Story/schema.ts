@@ -13,6 +13,7 @@ export const StrapiDocumentSchema = z.object({
 // depending on how Strapi is configured, so accept either string or unknown.
 export const StorySchema = StrapiDocumentSchema.extend({
   title: z.string(),
+  slug: z.string(),
   description: z.string().optional().nullable(),
   content: z.union([z.string(), z.unknown()]),
   categories: z
