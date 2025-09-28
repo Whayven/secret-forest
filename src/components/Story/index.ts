@@ -1,3 +1,3 @@
-import { ListStories } from "../ListStories";
+import Story from "./Story.tsx";
 
-export { ListStories };
+export { Story };
