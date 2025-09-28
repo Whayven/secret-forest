@@ -1,4 +1,4 @@
-import type { Story } from "@/components/Story/schema";
+import type { Story } from "@/types/Story/story.types";
 
 export const StoryItem = ({ story }: { story: Story }) => {
   return (

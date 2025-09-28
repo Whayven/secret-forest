@@ -1,5 +1,5 @@
 import client from "../client";
-import { StoryResponseSchema, type Story } from "../../components/Story/schema";
+import { StoryResponseSchema, type Story } from "@/types/Story/story.schema";
 
 export const getStories = async (): Promise<Story[]> => {
   const storiesAPi = await client.collection("stories");

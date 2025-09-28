@@ -1,6 +1,6 @@
 import { astToReact } from "@/utils";
 import React from "react";
-import type { Story as StoryType } from "./schema";
+import type { Story as StoryType } from "@/types/Story/story.types";
 
 interface StoryProps {
   story: StoryType;
