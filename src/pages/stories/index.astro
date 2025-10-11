@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ListStories from "@/components/ListStories/ListStories";
+import Header from "@/components/Header";
+
+// ListStories performs its own server-side fetch (uses getStories).
+---
+
+<Layout>
+  <main style="max-width: 800px; margin: 24px auto;">
+    <h1 class="text-3xl font-bold mb-4">Stories</h1>
+    <ListStories />
+  </main>
+</Layout>
