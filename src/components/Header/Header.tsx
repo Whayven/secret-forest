@@ -1,4 +1,3 @@
-import { Link } from "@/components/ui/link";
 import { Navbar, NavbarItem, NavbarSection } from "@/components/ui/navbar";
 
 function Header({ params }: { params: { path: string } }) {
@@ -14,6 +13,9 @@ function Header({ params }: { params: { path: string } }) {
         >
           Stories
         </NavbarItem>
+      </NavbarSection>
+      <NavbarSection className="ml-auto">
+        <span className="font-bold text-2xl cursor-default">Secret Forest</span>
       </NavbarSection>
     </Navbar>
   );
