@@ -1,5 +1,8 @@
 ---
 import Header from "@/components/Header";
+
+const url = Astro.request.url;
+const path = new URL(url).pathname;
 ---
 
 <!doctype html>
@@ -12,7 +15,7 @@ import Header from "@/components/Header";
     <title>Secret Forest</title>
   </head>
   <body>
-    <Header />
+    <Header params={{ path }} />
     <slot />
   </body>
 </html>

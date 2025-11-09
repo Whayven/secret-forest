@@ -14,7 +14,16 @@ const Story: React.FC<StoryProps> = async ({ story }) => {
         <p className="text-lg text-gray-700 mb-6">{story.description}</p>
       )}
       <div className="prose prose-lg flex flex-col gap-8">
-        {astToReact(story.content)}
+        {story.chapters.map((chapter) => (
+          <a
+            key={chapter.id}
+            href={`/stories/${story.slug}/${chapter.slug}`}
+            className="block p-4 border rounded-lg hover:bg-gray-100 transition"
+          >
+            <h2 className="text-2xl font-semibold mb-4">{chapter.title}</h2>
+            <div>{chapter.description}</div>
+          </a>
+        ))}
       </div>
     </div>
   );

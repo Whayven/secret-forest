@@ -2,7 +2,6 @@ import { getStories } from "@/api/Story";
 import { StoryItem } from "./StoryItem/StoryItem";
 
 const data = await getStories();
-console.log("Fetched stories data:", data);
 
 const ListStories = async () => {
   return (

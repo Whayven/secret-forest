@@ -2,8 +2,8 @@ import client from "../client";
 import { StoryResponseSchema, type Story } from "@/types/Story/story.schema";
 
 export const getStories = async (): Promise<Story[]> => {
-  const storiesAPi = await client.collection("stories");
-  const result = await storiesAPi.find();
+  const storiesAPi = client.collection("stories");
+  const result = await storiesAPi.find({ populate: ["chapters"] });
 
   // Validate the runtime response with Zod. `result` is expected to match
   // the `StoryResponseSchema` shape: { data: Story[], meta: { pagination } }
@@ -18,8 +18,11 @@ export const getStories = async (): Promise<Story[]> => {
 };
 
 export const getStoryBySlug = async (slug: string): Promise<Story | null> => {
-  const storiesAPi = await client.collection("stories");
-  const result = await storiesAPi.find({ filters: { slug } });
+  const storiesAPi = client.collection("stories");
+  const result = await storiesAPi.find({
+    filters: { slug },
+    populate: ["chapters"],
+  });
 
   // Validate the runtime response with Zod. `result` is expected to match
   // the `StoryResponseSchema` shape: { data: Story[], meta: { pagination } }

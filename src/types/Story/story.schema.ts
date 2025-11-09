@@ -15,7 +15,17 @@ export const StorySchema = StrapiDocumentSchema.extend({
   title: z.string(),
   slug: z.string(),
   description: z.string().optional().nullable(),
-  content: z.union([z.string(), z.unknown()]),
+  chapters: z
+    .array(
+      z.object({
+        id: z.number(),
+        title: z.string(),
+        description: z.string().optional().nullable(),
+        slug: z.string(),
+      })
+    )
+    .optional()
+    .default([]),
   categories: z
     .array(
       z.object({
@@ -24,6 +34,18 @@ export const StorySchema = StrapiDocumentSchema.extend({
     )
     .optional()
     .nullable(),
+});
+
+export const ChapterSchema = StrapiDocumentSchema.extend({
+  title: z.string(),
+  slug: z.string(),
+  description: z.string().optional().nullable(),
+  content: z.union([z.string(), z.unknown()]),
+  story: z.object({
+    id: z.number(),
+    title: z.string(),
+    slug: z.string(),
+  }),
 });
 
 export const PaginationSchema = z.object({
@@ -38,5 +60,12 @@ export const StoryResponseSchema = z.object({
   meta: z.object({ pagination: PaginationSchema }),
 });
 
+export const ChapterResponseSchema = z.object({
+  data: z.array(ChapterSchema),
+  meta: z.object({ pagination: PaginationSchema }),
+});
+
 export type Story = z.infer<typeof StorySchema>;
 export type StoryResponse = z.infer<typeof StoryResponseSchema>;
+export type Chapter = z.infer<typeof ChapterSchema>;
+export type ChapterResponse = z.infer<typeof ChapterResponseSchema>;

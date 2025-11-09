@@ -1,0 +1,48 @@
+---
+import { getStories } from "@/api/Story"; // you may need to implement this
+import { getChapterBySlug } from "@/api/Chapter";
+import Layout from "@/layouts/Layout.astro";
+import { astToHtml } from "@/utils/parsers";
+
+export const prerender = true; // pre-render at build time
+
+export async function getStaticPaths() {
+  // fetch all stories and their chapters (you may need to add a helper to the API)
+  const stories = await getStories(); // should return array of { slug, chapters: [{ slug }] }
+  console.log("Fetched stories for static paths:", stories);
+  const paths = stories.flatMap((s) =>
+    (s.chapters || []).map((c) => ({
+      params: { slug: s.slug, chapter: c.slug },
+    }))
+  );
+  return paths;
+}
+
+const { slug, chapter } = Astro.params;
+console.log("Generating page for:", slug, chapter);
+if (!slug || !chapter) {
+  throw new Error(`Missing slug or chapter: ${slug}, ${chapter}`);
+}
+
+const storyChapter = await getChapterBySlug(slug, chapter);
+if (!storyChapter) {
+  // Let Astro return 404 for missing content:
+  throw new Error(`Not found`); // or prefer: return Astro.redirect('/404', 404)
+}
+---
+
+<Layout>
+  <main style="max-width: 800px; margin: 24px auto;">
+    <button
+      onclick="history.back()"
+      class="mb-4 text-sm text-gray-500 hover:text-gray-700"
+    >
+      &larr; Back to {storyChapter.story.title}
+    </button>
+    <h1 class="text-3xl font-bold mb-4">{storyChapter.title}</h1>
+    <div
+      class="prose flex flex-col gap-2"
+      set:html={astToHtml(storyChapter.content)}
+    />
+  </main>
+</Layout>

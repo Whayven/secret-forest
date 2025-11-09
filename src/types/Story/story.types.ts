@@ -1,1 +1,1 @@
-export type { Story, StoryResponse } from "./story.schema";
+export type { Story, StoryResponse, Chapter } from "./story.schema";
